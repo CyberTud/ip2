@@ -1,9 +1,7 @@
 package com.deskbooking.deskbooking.service;
 
-import com.deskbooking.deskbooking.model.User;
 import com.deskbooking.deskbooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

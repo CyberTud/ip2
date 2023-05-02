@@ -1,7 +1,7 @@
 package com.deskbooking.deskbooking.exception;
 
-public class NoUserFound extends Exception{
-    public NoUserFound(){
+public class UserProblems extends Exception{
+    public UserProblems(){
         super("The user does not exist");
     }
 }
