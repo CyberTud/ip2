@@ -1,17 +1,10 @@
 package com.deskbooking.deskbooking.service;
 
-import com.deskbooking.deskbooking.exception.NoUserFound;
-import com.deskbooking.deskbooking.exception.WrongCredentials;
-import com.deskbooking.deskbooking.model.AuthRequest;
-import com.deskbooking.deskbooking.util.JwtUtil;
-import lombok.*;
-import com.deskbooking.deskbooking.model.User;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import com.deskbooking.deskbooking.exception.UserProblems;
+import com.deskbooking.deskbooking.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.deskbooking.deskbooking.repository.UserRepository;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,8 +40,8 @@ public class UserService {
             }
     }
 
-    public User findUserById(Integer userId) throws NoUserFound {
-        return userRepository.findById(userId).orElseThrow(NoUserFound::new);
+    public User findUserById(Integer userId) throws UserProblems {
+        return userRepository.findById(userId).orElseThrow(UserProblems::new);
     }
 
     public List<User> getAllUsers() {

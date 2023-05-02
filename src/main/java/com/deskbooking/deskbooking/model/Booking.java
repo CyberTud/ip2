@@ -1,10 +1,17 @@
 package com.deskbooking.deskbooking.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,11 +30,20 @@ public class Booking {
     private Integer deskId;
 
     @NotNull
-    private Date checkIn;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime checkIn;
 
     @NotNull
-    private Date checkOut;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime checkOut;
 
     @NotNull
     private Integer canceled = 0;
+
+    public Booking(Integer userId, Integer deskId, LocalDateTime checkIn, LocalDateTime checkOut) {
+        this.userId = userId;
+        this.deskId = deskId;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
 }
