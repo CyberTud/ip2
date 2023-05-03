@@ -2,13 +2,17 @@ package com.deskbooking.deskbooking.controller;
 
 import com.deskbooking.deskbooking.dto.BookingDTO;
 import com.deskbooking.deskbooking.exception.NoBookings;
+import com.deskbooking.deskbooking.model.Booking;
 import com.deskbooking.deskbooking.service.BookingService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,7 +21,7 @@ import java.util.List;
 public class BookingController {
     private final BookingService bookingService;
 
-    //    @PostMapping("/create")
+//    @PostMapping("/create")
 //    public Booking createBooking(@RequestBody Booking booking){
 //        return bookingService.createBooking(booking);
 //    }

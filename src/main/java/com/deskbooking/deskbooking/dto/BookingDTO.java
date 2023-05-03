@@ -21,7 +21,7 @@ public class BookingDTO {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime checkOut;
 
-    public BookingDTO(User user, Desk desk, Booking booking){
+    public BookingDTO(User user, Desk desk,Booking booking){
         this.emailUser = user.getEmail();
         this.nameDesk = desk.getName();
         this.checkIn = booking.getCheckIn();

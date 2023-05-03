@@ -3,6 +3,9 @@ package com.deskbooking.deskbooking.service;
 import com.deskbooking.deskbooking.dto.BookingDTO;
 import com.deskbooking.deskbooking.exception.NoBookings;
 import com.deskbooking.deskbooking.mapper.BookingMapper;
+import com.deskbooking.deskbooking.model.Booking;
+import com.deskbooking.deskbooking.model.Desk;
+import com.deskbooking.deskbooking.model.User;
 import com.deskbooking.deskbooking.repository.BookingRepository;
 import com.deskbooking.deskbooking.repository.DeskRepository;
 import com.deskbooking.deskbooking.repository.UserRepository;
@@ -10,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service

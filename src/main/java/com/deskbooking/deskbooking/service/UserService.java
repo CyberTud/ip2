@@ -1,10 +1,12 @@
 package com.deskbooking.deskbooking.service;
 
 import com.deskbooking.deskbooking.exception.UserProblems;
-import com.deskbooking.deskbooking.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import com.deskbooking.deskbooking.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.deskbooking.deskbooking.repository.UserRepository;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
