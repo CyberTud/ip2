@@ -1,5 +1,7 @@
 package com.deskbooking.deskbooking.dto;
 
+import com.deskbooking.deskbooking.model.Booking;
+import com.deskbooking.deskbooking.model.Desk;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

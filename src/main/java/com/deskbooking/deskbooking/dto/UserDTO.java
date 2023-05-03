@@ -1,8 +1,12 @@
 package com.deskbooking.deskbooking.dto;
 
+import com.deskbooking.deskbooking.model.User;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
 
 @Data
 @AllArgsConstructor

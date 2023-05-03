@@ -2,11 +2,14 @@ package com.deskbooking.deskbooking.service;
 
 import com.deskbooking.deskbooking.dto.DeskDTO;
 import com.deskbooking.deskbooking.mapper.DeskMapper;
-import com.deskbooking.deskbooking.repository.DeskRepository;
+import com.deskbooking.deskbooking.model.Booking;
 import lombok.RequiredArgsConstructor;
+import com.deskbooking.deskbooking.model.Desk;
 import org.springframework.stereotype.Service;
+import com.deskbooking.deskbooking.repository.DeskRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

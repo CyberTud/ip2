@@ -2,9 +2,11 @@ package com.deskbooking.deskbooking.controller;
 
 import com.deskbooking.deskbooking.exception.UserProblems;
 import com.deskbooking.deskbooking.exception.WrongCredentials;
+import com.deskbooking.deskbooking.model.AuthRequest;
 import com.deskbooking.deskbooking.service.UserService;
 import com.deskbooking.deskbooking.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import com.deskbooking.deskbooking.model.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
