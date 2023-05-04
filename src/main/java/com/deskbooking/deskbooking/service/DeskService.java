@@ -2,11 +2,14 @@ package com.deskbooking.deskbooking.service;
 
 import com.deskbooking.deskbooking.dto.DeskDTO;
 import com.deskbooking.deskbooking.mapper.DeskMapper;
+import com.deskbooking.deskbooking.model.Booking;
 import lombok.RequiredArgsConstructor;
 import com.deskbooking.deskbooking.model.Desk;
 import org.springframework.stereotype.Service;
 import com.deskbooking.deskbooking.repository.DeskRepository;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +17,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DeskService {
     private final DeskRepository deskRepository;
+
+    private final BookingService bookingService;
     private final DeskMapper deskMapper;
 
     public Desk createDesk(Desk desk){
@@ -28,9 +33,11 @@ public class DeskService {
         return deskRepository.findDeskByName(name);
     }
 
-    public List<DeskDTO> getAllDesks(){
+    public List<DeskDTO> getAllDesks(LocalDateTime date){
         return deskRepository.findAll().stream()
-                .map(deskMapper::toDeskDTO)
+                .map(desk -> {
+                    return deskMapper.toDeskDTO(desk,bookingService.getAvailableHoursForDate(date, desk.getName()));
+                })
                 .collect(Collectors.toList());
     }
 }

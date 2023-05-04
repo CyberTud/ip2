@@ -1,13 +1,8 @@
 package com.deskbooking.deskbooking.service;
 
 import com.deskbooking.deskbooking.exception.NoUserFound;
-import com.deskbooking.deskbooking.exception.WrongCredentials;
-import com.deskbooking.deskbooking.model.AuthRequest;
-import com.deskbooking.deskbooking.util.JwtUtil;
 import lombok.*;
 import com.deskbooking.deskbooking.model.User;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.deskbooking.deskbooking.repository.UserRepository;

@@ -6,7 +6,10 @@ import com.deskbooking.deskbooking.model.Desk;
 import com.deskbooking.deskbooking.model.User;
 import org.mapstruct.Mapper;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface DeskMapper {
-    DeskDTO toDeskDTO(Desk desk);
+    DeskDTO toDeskDTO(Desk desk, List<LocalDateTime> freeHours);
 }

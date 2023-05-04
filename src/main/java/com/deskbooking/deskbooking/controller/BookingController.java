@@ -2,13 +2,17 @@ package com.deskbooking.deskbooking.controller;
 
 import com.deskbooking.deskbooking.dto.BookingDTO;
 import com.deskbooking.deskbooking.exception.NoBookings;
-import com.deskbooking.deskbooking.exception.NoDeskFound;
-import com.deskbooking.deskbooking.exception.NoUserFound;
 import com.deskbooking.deskbooking.model.Booking;
 import com.deskbooking.deskbooking.service.BookingService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,53 +21,57 @@ import java.util.List;
 public class BookingController {
     private final BookingService bookingService;
 
-    @PostMapping("/create")
-    public Booking createBooking(@RequestBody Booking booking){
-        return bookingService.createBooking(booking);
-    }
-//    @PostMapping
-//    public Booking createBooking(@RequestParam String token,@RequestParam Integer deskId,@RequestParam String daySelection,@RequestParam String hours){
-//        return bookingService.createBooking(token,deskId,daySelection,hours);
+//    @PostMapping("/create")
+//    public Booking createBooking(@RequestBody Booking booking){
+//        return bookingService.createBooking(booking);
 //    }
+    @PostMapping("/create")
+    public Booking createBooking(Principal principal, @RequestBody BookingDTO bookingDTO){
+        bookingDTO.setEmailUser(principal.getName());
+        return bookingService.createBooking(bookingDTO);
+    }
 
     @GetMapping("/getAll")
     public List<Booking> getAllBookings(){
         return bookingService.getAllBookings();
     }
 
-    @GetMapping("/getAllByUser/{userId}")
-    public List<Booking> getAllBookigsByUser(@PathVariable Integer userId) throws NoBookings, NoUserFound {
-        System.out.println(userId);
-        return bookingService.getAllBookigsByUser(userId);
+    @GetMapping("/getAllByUserEmail")
+    public List<BookingDTO> getAllBookigsByUserEmail(Principal principal) throws NoBookings {
+        return bookingService.getAllBookigsByUserEmail(principal.getName());
     }
 
-    @GetMapping("/getAllByDesk/{deskId}")
-    public List<Booking> getAllBookigsByDesk(@PathVariable Integer deskId) throws NoBookings, NoDeskFound {
-        return bookingService.getAllBookingsByDesk(deskId);
+    @GetMapping("/getAllByDesk")
+    public List<BookingDTO> getAllBookigsByDesk(@RequestParam String deskName, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
+        return bookingService.getAllBookingsByDesk(deskName,date);
     }
 
-//    @PutMapping("/addUser/{bookingId}/{userId}")
-//    public void addUser(@PathVariable Integer bookingId,@PathVariable Integer userId) throws NoUserFound, NoBookings {
-//        bookingService.addUser(bookingId,userId);
-//    }
-//
-//    @PutMapping("/addDesk/{bookingId}/{deskId}")
-//    public void addDesk(@PathVariable Integer bookingId,@PathVariable Integer deskId) throws NoBookings, NoDeskFound {
-//        bookingService.addDesk(bookingId,deskId);
-//    }
+    @GetMapping("/getAllByDeskWithoutCanceled")
+    public List<BookingDTO> getAllBookigsByDeskWithoutCanceled(@RequestParam String deskName, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
+        return bookingService.getAllBookingsByDeskWithoutCanceled(deskName,date);
+    }
 
     @GetMapping("/desksByDate")
-    public List<Booking> getBookingsByDate(@RequestParam String date){
+    public List<Booking> getBookingsByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date){
         return bookingService.showBookingsForADate(date);
     }
 
-    @PutMapping("/deleteBooking/{bookingId}")
-    public void deleteBookingById(@PathVariable Integer bookingId){
-        bookingService.deleteBooking(bookingId);
+    @PostMapping ("/deleteBooking")
+    public void deleteBookingById(Principal principal,@RequestBody BookingDTO bookingDTO){
+        System.out.println(principal.getName());
+        bookingDTO.setEmailUser(principal.getName());
+        bookingService.deleteBooking(bookingDTO);
     }
 
-    @GetMapping("/bookings")
-    public List<BookingDTO> getBooking(){
-        return bookingService.getBooking();
+    @GetMapping("/availableHours")
+    public List<LocalDateTime> getAvailableHoursForADate(@RequestParam String deskName, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
+        return bookingService.getAvailableHoursForDate(date, deskName);
+    }
+
+    @PostMapping ("/updateBooking")
+    public void updateBookingById(Principal principal,@RequestBody BookingDTO bookingDTO,@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime checkIn,@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime checkOut){
+        System.out.println(principal.getName());
+        bookingDTO.setEmailUser(principal.getName());
+        bookingService.updateBooking(bookingDTO,checkIn,checkOut);
     }
 }
