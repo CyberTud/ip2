@@ -45,7 +45,7 @@ public class UserController {
         return jwtUtil.generateToken(authRequest.getEmail());
     }
 
-    @GetMapping("/user/getManagers")
+        @GetMapping("/user/getManagers")
     public List<String> getManagers(){
         return userService.getManagers();
     }
